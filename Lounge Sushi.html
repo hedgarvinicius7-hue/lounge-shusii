@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lounge Sushi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#B01C1F;--red2:#D42A2D;--black:#0A0A0A;--white:#FFF;--mute:#B9B9B9;--line:#2B2B2B;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--black);color:var(--white);font-family:Archivo,system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+.hero{background:radial-gradient(circle at 75% 40%,var(--red2),var(--red) 60%);padding-bottom:70px;position:relative}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.5rem;letter-spacing:.08em}
+nav{display:flex;gap:22px;align-items:center;font-size:.85rem}
+nav a{color:#fff;text-decoration:none}
+.pill{background:var(--black);color:#fff!important;padding:10px 18px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-block}
+.pill.red{background:var(--red)}
+.pill:hover{background:#fff;color:var(--red)!important}
+a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.heroGrid{display:grid;gap:10px;align-items:center;padding-top:34px}
+h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(2.6rem,11vw,5rem);line-height:1;margin:0 0 16px;text-transform:uppercase}
+.hero p{max-width:34ch;margin:0 0 24px;opacity:.9}
+.art{width:min(340px,78vw);aspect-ratio:300/220;justify-self:center;touch-action:pan-y;cursor:grab}.art canvas,.art svg{display:block;width:100%;height:100%}
+.wave{position:absolute;left:0;bottom:-1px;width:100%;height:50px;display:block}
+@media(min-width:700px){.heroGrid{grid-template-columns:1.2fr 1fr;padding-top:50px}.hide{display:inline}}
+@media(max-width:699px){nav .hide{display:none}}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--black);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;padding:12px 0}
+.chips a{display:inline-block;margin-right:8px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;color:#fff;text-decoration:none;font-size:.85rem}
+.chips a:hover{background:var(--red);border-color:var(--red)}
+section{padding:36px 0 8px}
+h2{display:inline-block;background:var(--red);font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.7rem;padding:4px 30px 4px 18px;border-radius:0 999px 999px 0;margin:0 0 6px -22px;text-transform:uppercase}
+.note{color:var(--mute);font-size:.85rem;margin:6px 0 10px}
+.row{padding:12px 0;border-bottom:1px solid var(--line)}
+.top{display:flex;gap:10px;align-items:baseline}
+.nm{font-weight:600}
+.dots{flex:1;border-bottom:2px dotted #555;transform:translateY(-4px);min-width:12px}
+.pr{font-weight:800;white-space:nowrap}
+.ds{color:var(--mute);font-size:.85rem;margin-top:2px}
+.contact{margin-top:50px;background:var(--red);padding:44px 0;text-align:center}
+.contact h2{background:none;margin:0 0 10px;padding:0;font-size:2.2rem}
+.contact p{margin:0 0 20px}
+footer{padding:22px;text-align:center;color:var(--mute);font-size:.8rem}
+[hidden]{display:none!important}
+body.hasbar{padding-bottom:90px}
+.row{display:block}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.add{background:transparent;color:#fff;border:1px solid var(--red2);border-radius:999px;padding:8px 16px;font:600 .85rem Archivo,sans-serif;cursor:pointer}
+.add:hover,.add.ok{background:var(--red);border-color:var(--red)}
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:24px 18px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,#000 45%)}
+#bar button{display:flex;justify-content:space-between;width:100%;max-width:560px;margin:0 auto;border:0;font:800 1rem Archivo,sans-serif;cursor:pointer;padding:16px 22px}
+#bar button:hover{background:var(--red2)}
+#sheet{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.75)}
+.panel{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:560px;max-height:92%;overflow:auto;background:#111;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ph h3{margin:0;font-family:"Cormorant Garamond",serif;font-size:1.8rem;text-transform:uppercase}
+#closeCart{background:none;border:0;color:#fff;font-size:1.4rem;padding:6px 10px;cursor:pointer}
+.ln{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.lnm small{display:block;color:var(--mute)}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1px solid #555;background:none;color:#fff;font-size:1.1rem;cursor:pointer}
+.tot{display:flex;justify-content:space-between;font-size:1.2rem;padding:14px 0}
+.fld{margin:12px 0}
+.fld>span{display:block;font-size:.85rem;color:var(--mute);margin-bottom:4px}
+.fld input[type=text],.fld input[type=tel],.fld select,.fld textarea{width:100%;background:#1a1a1a;border:1px solid #3a3a3a;border-radius:10px;color:#fff;padding:12px;font:400 16px Archivo,sans-serif}
+.seg{display:flex;gap:18px}
+.seg label{display:flex;gap:6px;align-items:center}
+.hint{color:var(--mute);font-size:.82rem}
+#err{color:#ff8a8a;font-size:.9rem;min-height:1.2em}
+.big{width:100%;border:0;font:800 1rem Archivo,sans-serif;padding:16px;cursor:pointer;text-align:center}
+#clear{display:block;margin:12px auto 0;background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font:400 .85rem Archivo,sans-serif}
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="wrap">
+<header><span class="logo">LOUNGE SUSHI</span><nav><a class="hide" href="#cardapio">Cardápio</a><a class="hide" href="#pedido">Contato</a><a class="pill" href="#cardapio">Fazer pedido</a></nav></header>
+<div class="heroGrid">
+<div>
+<h1>Sushi com sabor de sobra</h1>
+<p>Hots, joys, temakis e combinados para dividir. Peça pelo WhatsApp e receba em casa.</p>
+<a class="pill" href="#cardapio">Ver cardápio</a>
+</div>
+<div class="art" id="sushi3d" role="img" aria-label="Nigiri de salmão em 3D, arraste para girar"><svg viewBox="0 0 300 220">
+<ellipse cx="150" cy="195" rx="120" ry="14" fill="#000" opacity=".25"/>
+<rect x="55" y="105" width="190" height="80" rx="38" fill="#fff"/>
+<path d="M40 110c20-50 200-60 220 0-30 22-190 22-220 0z" fill="#FF7A4D"/>
+<path d="M70 98c30 12 60 10 90 0M130 90c30 14 60 12 90 2" stroke="#FFD2BF" stroke-width="5" fill="none" stroke-linecap="round"/>
+<rect x="125" y="84" width="50" height="108" rx="4" fill="#0A0A0A"/>
+</svg></div>
+</div>
+</div>
+<svg class="wave" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C200 0 400 50 600 25S1000 5 1200 30V50H0Z" fill="#0A0A0A"/></svg>
+</div>
+
+<div class="chips"><div class="wrap" id="chips"></div></div>
+<div class="wrap" id="cardapio"></div>
+
+<div class="contact" id="pedido"><div class="wrap">
+<h2>Peça agora</h2>
+<p>WhatsApp 82 99116-3767 · Instagram @loungesushii</p>
+<a class="pill" href="https://wa.me/5582991163767">Chamar no WhatsApp</a>
+</div></div>
+<footer>Lounge Sushi</footer>
+
+<div id="bar" hidden><button id="openCart" class="pill red"><span id="bc"></span><span id="bt"></span></button></div>
+<div id="sheet" hidden role="dialog" aria-modal="true" aria-label="Seu pedido"><div class="panel">
+<div class="ph"><h3>Seu pedido</h3><button id="closeCart" aria-label="Fechar">✕</button></div>
+<div id="lines"></div>
+<div class="tot"><span>Total dos itens</span><b id="tt"></b></div>
+<div class="fld"><span>Como quer receber</span><div class="seg"><label><input type="radio" name="tp" value="Entrega" checked> Entrega</label><label><input type="radio" name="tp" value="Retirada"> Retirada</label></div></div>
+<div class="fld"><span>Nome</span><input type="text" id="fn" autocomplete="name"></div>
+<div class="fld"><span>Telefone</span><input type="tel" id="ft" autocomplete="tel"></div>
+<div class="fld" id="fa"><span>Endereço de entrega</span><input type="text" id="fe" autocomplete="street-address" placeholder="Rua, número, bairro"></div>
+<div class="fld"><span>Pagamento</span><select id="fp"><option>Pix</option><option>Cartão na entrega</option><option>Dinheiro</option></select></div>
+<div class="fld" id="fc" hidden><span>Troco para quanto?</span><input type="text" id="fx" placeholder="Ex.: R$ 100"></div>
+<div class="fld"><span>Observações</span><textarea id="fo" rows="2" placeholder="Sem cebolinha, molho extra..."></textarea></div>
+<p class="hint">A taxa de entrega e a chave Pix são combinadas com o restaurante pelo WhatsApp.</p>
+<div id="err"></div>
+<button id="send" class="pill red big">Enviar pedido pelo WhatsApp</button>
+<button id="clear">Limpar pedido</button>
+</div></div>
+<script>
+var M=[
+["Combinados","Só de salmão ou camarão: acréscimo de R$ 25 (Barca do Cheff +40, Barca Especial +50, Barca Lounge +70).",[
+"Hot 20 un|58|5 Philadelphia, 5 Dinamite e 10 Furacão ou Lounge",
+"Especial Salmão 17 un|65|5 sashimi, 3 dragon, 4 joy e 5 uramaki",
+"Temaki 8 un|65|1 temaki, 2 niguiri e 5 hots",
+"Simples 20 un|70|3 dragon, 3 joy, 4 niguiri, 5 uramaki e 5 hots",
+"Salmão Grelhado 28 un|73|10 hots, 10 uramaki e 8 hossomaki",
+"Lounge 25 un|83|3 sashimi, 3 dragon, 4 niguiri, 5 uramaki, 5 hossomaki e 5 hots",
+"Lounge Especial 30 un|95|6 sashimi, 4 dragon, 6 joy, 4 niguiri, 5 uramaki e 5 hots",
+"Barca do Cheff 55 un|180|5 dragon, 6 joy, 6 niguiri, 10 uramaki, 8 hossomaki e 10 hots",
+"Barca Especial do Cheff 70 un|215|10 sashimi, 10 dragon, 10 joy, 6 niguiri, 10 uramaki, 8 hossomaki, 10 hots e 6 camarão cheese",
+"Barca Lounge 100 un|280|15 sashimi, 10 dragon, 10 joy, 10 niguiri, 20 uramaki, 15 hossomaki, 15 hots e 6 camarão cheese"]],
+["Hots","10 unidades, enrolados e fritos.",[
+"Dinamite|35|Alga nori, arroz, patê de salmão grelhado e cream cheese",
+"Philadelfia|39|Salmão e cream cheese, frito na massa tempurá",
+"Lounge|35|Massa harumaki, salmão grelhado e cream cheese",
+"Furacão|38|Massa harumaki, salmão, kani e cream cheese",
+"Carioquinha|35|Alga por fora, frito na massa tempurá, recheado com salmão",
+"Camarão|43|Recheio de salmão grelhado e camarão",
+"Hot do Cheff|43|Salmão, camarão e cream cheese",
+"Nutella|40|Massa harumaki, banana e Nutella por cima",
+"Nutella Cheese|40|Banana, Nutella e cream cheese por cima",
+"Disquete|40|Banana, Disquete e Nutella por cima",
+"Geleia de Pimenta|43|Salmão grelhado coberto com geleia de pimenta",
+"Geleia de Maracujá|43|Salmão grelhado coberto com geleia de maracujá",
+"Doritos|43|Patê de salmão grelhado, cream cheese e Doritos por cima"]],
+["Joy e Dragon","10 unidades.",[
+"Nori Salmão|42|Coberto de cream cheese e salmão cru",
+"Nori Camarão|42|Coberto de cream cheese e camarão",
+"Joy Salmão|50|Enrolado por salmão e coberto com cream cheese",
+"Joy Camarão|50|Enrolado por salmão, coberto com cream cheese e camarão",
+"Joy Negui|50|Enrolado por salmão e coberto com patê de salmão",
+"Joy Pimenta|50|Com cream cheese e geleia de pimenta",
+"Joy Maracujá|50|Com cream cheese e geleia de maracujá",
+"Joy Doritos|50|Com cream cheese e Doritos",
+"Joy Crispy de Couve|50|Com cream cheese e crispy de couve",
+"Joy Crispy de Batata|50|Com cream cheese e crispy de batata",
+"Dragon|55|Camarão e cream cheese enrolados em salmão maçaricado",
+"Lounge Misto 14 un|80|6 dragons, 4 joy negui e 4 joy salmão"]],
+["Temaki","Qualquer temaki pode ser frito por mais R$ 2.",[
+"Temakito|35|Qualquer sabor, exceto dragon",
+"Kani|40|Alga nori, arroz, cream cheese, kani e cebolinha",
+"Skin|40|Pele de salmão grelhada e frita, cream cheese e cebolinha",
+"Misto|45|Salmão, kani, cream cheese e cebolinha",
+"Salmão|48|Salmão, cream cheese e cebolinha",
+"Salmão Grelhado|45|Patê de salmão grelhado, cream cheese e cebolinha",
+"Salmão e Camarão|48|Salmão, camarão, cream cheese e cebolinha",
+"Camarão|48|Camarão, cream cheese e cebolinha",
+"Polvo|48|Polvo, cream cheese e cebolinha",
+"Dragon|70|Cone de salmão maçaricado, recheado com salmão grelhado, camarão e cream cheese"]],
+["Niguiri","8 unidades.",[
+"Peixe Branco|37|","Kani|37|","Salmão|40|","Polvo|40|","Skin|37|Pele de salmão grelhada frita","Misto|40|Até 2 sabores"]],
+["Hossomaki","8 unidades.",[
+"Kani|30|Alga nori por fora, arroz, kani e cream cheese",
+"Salmão|35|Salmão e cream cheese",
+"Salmão Grelhado|33|Patê de salmão grelhado e cream cheese"]],
+["Sashimi","15 lâminas. Pode escolher 2 ou 3 sabores.",[
+"Peixe Branco|58|","Kani|50|","Salmão|75|","Polvo|73|","Misto|75|"]],
+["Entradas","",[
+"Sushiburguer|42|Sabores: kani, misto, salmão, salmão grelhado, salmão e camarão",
+"Sushizza|44|Mesmos sabores do sushiburguer",
+"Sushidog|45|Mesmos sabores do sushiburguer",
+"Sunomono Simples|34|Pepinos desidratados ao molho do cheff",
+"Sunomono de Kani|36|Com cubos de kani",
+"Sunomono Misto|48|Com cubos de salmão, kani e polvo",
+"Sunomono Misto com Camarão|48|Com cubos de salmão, kani, polvo e camarão",
+"Sunomono de Salmão|50|Com cubos de salmão",
+"Ceviche|48|Peixe branco, salmão e cebola roxa marinados",
+"Camarão Cheese|48|Camarão empanado com cream cheese",
+"Carpaccio|60|Lâminas finas de salmão ao molho do cheff",
+"Polvo na Manteiga|65|Polvo grelhado na manteiga"]],
+["Pastéis Harumaki","2 unidades.",[
+"Queijo Coalho|27|","Salmão Grelhado|33|","Primavera|38|Carne com legumes","Romeu e Julieta|38|Queijo coalho e goiabada","Nutella e Banana|38|","Nutella|44|","Camarão Cheese|45|Camarão com cream cheese"]],
+["Yakissoba","1 pessoa / 2 pessoas.",[
+"Frango|38 / 67|","Carne|40 / 75|","Misto Frango e Carne|40 / 70|","Misto Frango, Carne e Camarão|45 / 75|","Camarão|45 / 75|"]],
+["Culinária chinesa","1 pessoa / 2 pessoas. Acompanha arroz yakimeshi.",[
+"Frango Xadrez|37 / 62|","Carne Acebolada|40 / 70|"]],
+["Tepan","",[
+"Picanha na Chapa|150|Salada oriental, batata frita, arroz e queijo coalho",
+"Salmão na Chapa|150|Arroz e salada oriental"]],
+["Sobremesa","",[
+"Ice Cheese Nutella|28|Sorvete de cream cheese com Nutella e amendoim triturado"]],
+["Monte seu poke","Bowl padrão de 500 ml. Para pedir o poke, chame no WhatsApp.",[
+"Base (1)||Arroz japonês, alface ou bifum",
+"Proteína (2)||Salmão, salmão maçaricado, salmão grelhado, kani, camarão, polvo ou peixe branco",
+"Molho (2)||Tarê, shoyo, geleia de pimenta ou molho de maracujá",
+"Acompanhamentos (4)||Pepino, milho, cenoura, edamame, cebola roxa, manga, crispy de couve, crispy de batata, amendoim, gengibre, tomate cereja, geleia de gengibre ou cream cheese",
+"Opcional||Gergelim e cebolinha"]]
+];
+var c=document.getElementById("cardapio"),ch=document.getElementById("chips"),h="",k="";
+M.forEach(function(s,i){
+k+='<a href="#s'+i+'">'+s[0]+'</a>';
+h+='<section id="s'+i+'"><h2>'+s[0]+'</h2>'+(s[1]?'<div class="note">'+s[1]+'</div>':'');
+s[2].forEach(function(r,j){var p=r.split("|"),b='';
+if(p[1]){var o=p[1].split(" / ");
+if(o.length>1)b='<div class="opts"><button class="add" data-i="'+i+'-'+j+'-0">1 pessoa · R$ '+o[0]+'</button><button class="add" data-i="'+i+'-'+j+'-1">2 pessoas · R$ '+o[1]+'</button></div>';
+else b='<div class="opts"><button class="add" data-i="'+i+'-'+j+'-0">Adicionar</button></div>'}
+h+='<div class="row"><div class="top"><span class="nm">'+p[0]+'</span>'+(p[1]?'<span class="dots"></span><span class="pr">R$ '+p[1]+'</span>':'')+'</div>'+(p[2]?'<div class="ds">'+p[2]+'</div>':'')+b+'</div>'});
+h+='</section>'});
+c.innerHTML=h;ch.innerHTML=k;
+var cart={},KEY='lounge-cart';
+try{cart=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){cart={}}
+function $(i){return document.getElementById(i)}
+function money(n){return 'R$ '+n.toFixed(2).replace('.',',')}
+function info(id){var q=id.split('-'),s=M[q[0]],p=s[2][q[1]].split('|'),pr=p[1].split(' / '),v=+q[2];
+return {name:s[0]+': '+p[0]+(pr.length>1?(v?' (2 pessoas)':' (1 pessoa)'):''),price:parseFloat(pr[v].replace(',','.'))}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}}
+function render(){var n=0,t=0,x='';
+Object.keys(cart).forEach(function(id){var q=cart[id],it;
+try{it=info(id)}catch(e){delete cart[id];return}
+if(!(q>0)){delete cart[id];return}
+n+=q;t+=q*it.price;
+x+='<div class="ln"><div class="lnm">'+it.name+'<small>'+money(it.price)+'</small></div><div class="qty"><button data-m="'+id+'" aria-label="Diminuir">−</button><b>'+q+'</b><button data-p="'+id+'" aria-label="Aumentar">+</button></div></div>'});
+$('lines').innerHTML=x||'<p class="note">Seu pedido está vazio.</p>';
+$('bc').textContent=n+(n===1?' item':' itens');$('bt').textContent=money(t);$('tt').textContent=money(t);
+$('bar').hidden=!n;document.body.classList.toggle('hasbar',n>0);
+if(!n)$('sheet').hidden=true;
+save()}
+document.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+if(b.classList.contains('add')){var id=b.dataset.i;cart[id]=(cart[id]||0)+1;b.classList.add('ok');setTimeout(function(){b.classList.remove('ok')},500);render()}
+else if(b.dataset.p){cart[b.dataset.p]++;render()}
+else if(b.dataset.m){cart[b.dataset.m]--;render()}});
+$('openCart').onclick=function(){$('sheet').hidden=false};
+$('closeCart').onclick=function(){$('sheet').hidden=true};
+$('sheet').addEventListener('click',function(e){if(e.target===this)this.hidden=true});
+$('clear').onclick=function(){cart={};render()};
+$('fp').onchange=function(){$('fc').hidden=this.value!=='Dinheiro'};
+Array.prototype.forEach.call(document.getElementsByName('tp'),function(r){r.onchange=function(){$('fa').hidden=document.querySelector('input[name=tp]:checked').value==='Retirada'}});
+$('send').onclick=function(){
+var tp=document.querySelector('input[name=tp]:checked').value,nm=$('fn').value.trim(),ph=$('ft').value.trim(),ad=$('fe').value.trim(),err=$('err');
+var ids=Object.keys(cart);
+if(!ids.length){err.textContent='Adicione itens ao pedido.';return}
+if(!nm||!ph){err.textContent='Preencha nome e telefone.';return}
+if(tp==='Entrega'&&!ad){err.textContent='Informe o endereço de entrega.';return}
+err.textContent='';
+var t=0,m='*Novo pedido - Lounge Sushi*\n\n';
+ids.forEach(function(id){var it=info(id),q=cart[id];t+=q*it.price;m+='• '+q+'x '+it.name+' - '+money(q*it.price)+'\n'});
+m+='\n*Total dos itens:* '+money(t)+'\n*Recebimento:* '+tp+'\n*Nome:* '+nm+'\n*Telefone:* '+ph+'\n';
+if(tp==='Entrega')m+='*Endereço:* '+ad+'\n';
+m+='*Pagamento:* '+$('fp').value;
+if($('fp').value==='Dinheiro'&&$('fx').value.trim())m+=' (troco para '+$('fx').value.trim()+')';
+if($('fo').value.trim())m+='\n*Obs:* '+$('fo').value.trim();
+var a=document.createElement('a');a.href='https://wa.me/5582991163767?text='+encodeURIComponent(m);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()};
+render();
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var el=document.getElementById('sushi3d');
+if(!el||typeof THREE==='undefined')return;
+var R;try{R=new THREE.WebGLRenderer({antialias:true,alpha:true})}catch(e){return}
+R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+var S=new THREE.Scene(),C=new THREE.PerspectiveCamera(30,300/220,.1,50);
+C.position.set(0,2.6,8.4);C.lookAt(0,.05,0);
+/* ambiente para reflexos */
+var E=new THREE.Scene();
+E.add(new THREE.Mesh(new THREE.BoxGeometry(20,20,20),new THREE.MeshBasicMaterial({color:0x2a0505,side:THREE.BackSide})));
+[[0,8,2,8,.3,5],[-8,2,3,.3,5,5],[8,3,-2,.3,4,6]].forEach(function(p){var m=new THREE.MeshBasicMaterial();m.color.setRGB(4,4,4);var b=new THREE.Mesh(new THREE.BoxGeometry(p[3],p[4],p[5]),m);b.position.set(p[0],p[1],p[2]);E.add(b)});
+S.environment=new THREE.PMREMGenerator(R).fromScene(E,.04).texture;
+S.add(new THREE.HemisphereLight(0xffffff,0x550000,.55));
+var L=new THREE.DirectionalLight(0xffffff,1.2);L.position.set(3,6,4);L.castShadow=true;
+L.shadow.mapSize.set(1024,1024);var sc=L.shadow.camera;sc.left=-4;sc.right=4;sc.top=4;sc.bottom=-4;sc.near=1;sc.far=16;L.shadow.bias=-.0005;S.add(L);
+var P=new THREE.PointLight(0xff3b30,.7);P.position.set(-4,1,3);S.add(P);
+/* texturas procedurais */
+function cv(w,h,f){var c=document.createElement('canvas');c.width=w;c.height=h;f(c.getContext('2d'),w,h);return c}
+function tx(c,srgb){var t=new THREE.CanvasTexture(c);if(srgb)t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
+var sc2=cv(512,256,function(g,w,h){
+var gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#EE5F36');gr.addColorStop(.5,'#FF8658');gr.addColorStop(1,'#F2693F');g.fillStyle=gr;g.fillRect(0,0,w,h);
+g.lineCap='round';
+for(var i=0;i<14;i++){var x=i*40-60+Math.random()*20;g.strokeStyle='rgba(255,226,208,'+(.35+Math.random()*.3)+')';g.lineWidth=4+Math.random()*12;
+g.beginPath();g.moveTo(x,0);g.bezierCurveTo(x+60,h*.3,x-20,h*.6,x+90,h);g.stroke()}
+for(var j=0;j<2500;j++){g.fillStyle=Math.random()<.5?'rgba(255,255,255,.07)':'rgba(120,20,0,.07)';g.fillRect(Math.random()*w,Math.random()*h,2,2)}
+});
+var st=tx(sc2,true),sb=tx(sc2,false);
+var nc=cv(256,256,function(g,w,h){g.fillStyle='#13170f';g.fillRect(0,0,w,h);
+for(var i=0;i<1800;i++){g.strokeStyle=Math.random()<.5?'rgba(60,85,50,.35)':'rgba(0,0,0,.5)';g.lineWidth=1;var y=Math.random()*h,x=Math.random()*w;g.beginPath();g.moveTo(x,y);g.lineTo(x+20+Math.random()*60,y+Math.random()*3);g.stroke()}});
+var nt=tx(nc,true);
+var G=new THREE.Group();
+/* arroz: núcleo + grãos */
+var core=new THREE.Mesh(new THREE.SphereGeometry(1,32,20),new THREE.MeshStandardMaterial({color:0xf3eee0,roughness:.6}));
+core.scale.set(1.9,.64,.92);G.add(core);
+var N=1100,gm=new THREE.SphereGeometry(1,8,6);gm.scale(.15,.085,.085);
+var gr=new THREE.InstancedMesh(gm,new THREE.MeshStandardMaterial({color:0xffffff,roughness:.5}),N);
+var d=new THREE.Object3D(),col=new THREE.Color();
+for(var i=0;i<N;i++){var x,y,z;do{x=Math.random()*2-1;y=Math.random()*2-1;z=Math.random()*2-1}while(x*x+y*y+z*z>1);
+var ln=Math.sqrt(x*x+y*y+z*z)||1,l=.72+.28*Math.random();
+d.position.set(x/ln*l*2.05,y/ln*l*.72,z/ln*l*1.0);
+d.rotation.set(Math.random()*3.14,Math.random()*3.14,Math.random()*3.14);d.updateMatrix();
+gr.setMatrixAt(i,d.matrix);col.setHSL(.12,.2,.9+Math.random()*.1);gr.setColorAt(i,col)}
+gr.castShadow=true;G.add(gr);
+/* salmão */
+var fg=new THREE.SphereGeometry(1,64,40),pp=fg.attributes.position,uv=fg.attributes.uv;
+for(var k=0;k<pp.count;k++)uv.setXY(k,(pp.getX(k)+1)/2,(pp.getZ(k)+1)/2);
+var fish=new THREE.Mesh(fg,new THREE.MeshPhysicalMaterial({map:st,bumpMap:sb,bumpScale:2.5,roughness:.38,clearcoat:.7,clearcoatRoughness:.2}));
+fish.scale.set(2.4,.36,1.2);fish.position.y=.62;fish.castShadow=true;G.add(fish);
+/* faixa de nori */
+var sh=new THREE.Shape();sh.absellipse(0,.15,1.32,1.02,0,Math.PI*2,false,0);
+var hole=new THREE.Path();hole.absellipse(0,.15,1.15,.86,0,Math.PI*2,true,0);sh.holes.push(hole);
+var ng=new THREE.ExtrudeGeometry(sh,{depth:.5,bevelEnabled:false,curveSegments:48});ng.translate(0,0,-.25);
+var nori=new THREE.Mesh(ng,new THREE.MeshStandardMaterial({map:nt,roughness:.8}));nori.rotation.y=Math.PI/2;nori.castShadow=true;G.add(nori);
+G.position.y=.1;S.add(G);
+var gd=new THREE.Mesh(new THREE.PlaneGeometry(14,14),new THREE.ShadowMaterial({opacity:.4}));
+gd.rotation.x=-Math.PI/2;gd.position.y=-.64;gd.receiveShadow=true;S.add(gd);
+G.rotation.x=.3;G.rotation.y=-.6;
+el.innerHTML='';el.appendChild(R.domElement);
+function size(){var w=el.clientWidth||300;R.setSize(w,w*220/300,false)}
+size();window.addEventListener('resize',size);
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+var drag=false,lx=0;
+el.addEventListener('pointerdown',function(e){drag=true;lx=e.clientX;el.style.cursor='grabbing'});
+window.addEventListener('pointerup',function(){drag=false;el.style.cursor='grab'});
+window.addEventListener('pointermove',function(e){if(!drag)return;G.rotation.y+=(e.clientX-lx)*.012;lx=e.clientX});
+function loop(){if(!drag&&!reduce)G.rotation.y+=.006;R.render(S,C);requestAnimationFrame(loop)}
+loop();
+})();
+</script>
+</body>
+</html>
